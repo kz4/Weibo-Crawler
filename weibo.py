@@ -13,9 +13,11 @@ from writeToDisk import *
 
 class launcher():
 
-    def __init__(self,username, password):
+    def __init__(self, username, password, startpage, filename):
         self.password = password
         self.username = username
+        self.startpage = startpage
+        self.filename = filename
 
     def get_prelogin_args(self):
 
@@ -137,15 +139,15 @@ class launcher():
 
         try:
             # Pass in the link on weibo you want to visit here
-            msg_page = ''
+            msg_page = self.startpage
             request = urllib.request.Request(msg_page)
             response = urllib.request.urlopen(request)
             message_Page = response.read().decode('utf-8')
-            writeToDisk("file.html", message_Page)
+            writeToDisk(self.filename, message_Page)
         except:
             print('Message error')
 
 if __name__ == '__main__':
     # Fill in your username and password
-    l = launcher('', '')
+    l = launcher('', '', '', '')
     l.login()
